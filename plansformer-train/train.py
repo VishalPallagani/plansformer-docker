@@ -18,7 +18,7 @@ from torch import cuda
 device = 'cuda' if cuda.is_available() else 'cpu'
 
 #dataset file goes here
-df = pd.read_csv("TrainDataset-bw.csv")
+df = pd.read_csv(os.path.join("sample_data","gripper","TrainDataset-gr.csv"))
 
 # define a rich console logger
 console=Console(record=True)
@@ -255,4 +255,4 @@ model_params={
 }
 
 #modify these parameters according to the dataset
-CodeT5Trainer(dataframe=df[:10000], source_text="DomainProblem", target_text="Plan", model_params=model_params, output_dir="outputs")
+CodeT5Trainer(dataframe=df[:10000], source_text="Domain_Problem", target_text="Plan", model_params=model_params, output_dir="outputs")
