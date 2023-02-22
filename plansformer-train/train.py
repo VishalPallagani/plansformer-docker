@@ -255,4 +255,4 @@ model_params={
 }
 
 #modify these parameters according to the dataset
-CodeT5Trainer(dataframe=df[:10000], source_text="DomainProblem", target_text="Plan", model_params=model_params, output_dir="outputs")
+CodeT5Trainer(dataframe=df[:10000], source_text="Domain_Problem", target_text="Plan", model_params=model_params, output_dir="outputs")
