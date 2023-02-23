@@ -6,6 +6,7 @@ import torch
 import torch.nn.functional as F
 from torch.utils.data import Dataset, DataLoader, RandomSampler, SequentialSampler
 import os
+import argparse
 
 # Importing the T5 modules from huggingface/transformers
 from transformers import RobertaTokenizer, T5ForConditionalGeneration
@@ -29,8 +30,13 @@ def display_plans_VAL(plans):
         corrected_plans.append(plan)
     return corrected_plans
 
+parser = argparse.ArgumentParser(add_help=False)
+
+parser.add_argument("--data", help="Train data csv file", required=True)
+args = parser.parse_args()
+
 #dataset file goes here
-df = pd.read_csv(os.path.join("sample_data","gripper","TrainDataset-gr.csv"))
+df = pd.read_csv(args.data)
 
 # define a rich console logger
 console=Console(record=True)
