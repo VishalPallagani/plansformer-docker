@@ -17,6 +17,18 @@ from rich.console import Console
 from torch import cuda
 device = 'cuda' if cuda.is_available() else 'cpu'
 
+def display_plans_VAL(plans):
+    corrected_plans = []
+    for plan in plans:
+        # Remove 'plan:' and strip whitespace
+        plan = plan.replace('plan:', '').strip()
+        # Remove ':' and strip whitespace
+        plan = plan.replace(':', '').strip()
+        # Split on ',' and join with '\n' between parentheses
+        plan = "\n".join([ f"({x.strip()})" for x in plan.split(',') ])
+        corrected_plans.append(plan)
+    return corrected_plans
+
 #dataset file goes here
 df = pd.read_csv(os.path.join("sample_data","gripper","TrainDataset-gr.csv"))
 
@@ -139,6 +151,7 @@ def validate(epoch, tokenizer, model, device, loader):
           target = [tokenizer.decode(t, skip_special_tokens=True, clean_up_tokenization_spaces=True)for t in y]
           if _%10==0:
               console.print(f'Completed {_}')
+          preds = display_plans_VAL(preds)
 
           predictions.extend(preds)
           actuals.extend(target)
